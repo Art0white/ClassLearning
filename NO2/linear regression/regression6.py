@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import numpy as np
+import matplotlib.pyplot as plt
 import random
 import regression1
 import regression3
@@ -61,6 +62,18 @@ def useStandRegres():#使用简单的线性回归
     ws=regression1.standRegres(lgX1,lgY)
     print('%f%+f*年份%+f*部件数量%+f*是否为全新%+f*原价'%(ws[0],ws[1],ws[2],ws[3],ws[4]))
 
+    xMat = [2006, 2007, 2008, 2009, 2010, 2011]
+    yMat = [0, 0, 0, 0, 0, 0]
+    for i in range(len(xMat)):
+        yMat[i] = ws[0] + ws[1]*xMat[i] + ws[2]*800 + ws[3]*0 + ws[4]*49.99
+        print(yMat[i])
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.scatter(xMat, yMat, s=20, c='blue', alpha=0.5)
+    plt.title('DataSet')
+    plt.xlabel('X')
+    plt.show()
+
 def crossValidation(xArr,yArr,numVal=10):#交叉验证岭回归，numVal为交叉验证次数
     m=len(yArr)
     indexList=list(range(m))
@@ -96,8 +109,8 @@ if __name__=='__main__':
     lgX=[];lgY=[]
     setDataCollect(lgX,lgY)
     print(regression4.ridgeTest(lgX,lgY))
-    #crossValidation(lgX,lgY)#交叉验证岭回归
-    #useStandRegres()        #简单线性回归
+    # crossValidation(lgX,lgY)#交叉验证岭回归
+    useStandRegres()        #简单线性回归
 
 
 
